@@ -32,11 +32,25 @@ spec:
               value: {{required "Short Domain Host required" .Values.env.SHORT_DOMAIN_HOST | quote }}
             - name: SHORT_DOMAIN_SCHEMA
               value: {{default "http" .Values.env.SHORT_DOMAIN_SCHEMA | quote }}
+            - name:  DB_DRIVER
+              value: "maria"
+            - name:  DB_HOST
+              value: {{ template "mariadb.fullname" . }}-mariadb
+            - name:  DB_USER
+              value: "shlink"
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ template "mariadb.fullname" . }}-mariadb
                   key: mariadb-password
+            {{- if .Values.env.INVALID_SHORT_URL_REDIRECT_TO }}
+            - name: INVALID_SHORT_URL_REDIRECT_TO
+              value: {{ .Values.env.INVALID_SHORT_URL_REDIRECT_TO }}
+            {{- end }}
+            {{- if .Values.env.BASE_URL_REDIRECT_TO }}
+            - name: BASE_URL_REDIRECT_TO
+              value: {{ .Values.env.BASE_URL_REDIRECT_TO }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080

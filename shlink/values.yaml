@@ -9,29 +9,18 @@ image:
   pullPolicy: IfNotPresent
 
 env:
-  SHORT_DOMAIN_HOST: doma.in  # The custom short domain used for this shlink instance. For example doma.in.
-  # SHORT_DOMAIN_SCHEMA: Either http or https.
-  # DB_DRIVER: sqlite (which is the default value), mysql, maria, postgres or mssql.
-  # DB_NAME: The database name to be used when using an external database driver. Defaults to shlink.
-  # DB_USER: The username credential to be used when using an external database driver.
-  # DB_PASSWORD: The password credential to be used when using an external database driver.
-  # DB_HOST: The host name of the database server when using an external database driver.
-  # DB_PORT: The port in which the database service is running when using an external database driver.
+  SHORT_DOMAIN_HOST: shlink.io  # The custom short domain used for this shlink instance. For example doma.in.
+  INVALID_SHORT_URL_REDIRECT_TO: null  # If a URL is provided here, when a user tries to access an invalid short URL, he/she will be redirected to this value. If this env var is not provided, the user will see a generic 404 - not found page.
+  BASE_URL_REDIRECT_TO: null  # If a URL is provided here, when a user tries to access Shlink's base URL, he/she will be redirected to this value. If this env var is not provided, the user will see a generic 404 - not found page.
   # DISABLE_TRACK_PARAM: The name of a query param that can be used to visit short URLs avoiding the visit to be tracked. This feature won't be available if not value is provided.
   # DELETE_SHORT_URL_THRESHOLD: The amount of visits on short URLs which will not allow them to be deleted. Defaults to 15.
   # VALIDATE_URLS: Boolean which tells if shlink should validate a status 20x is returned (after following redirects) when trying to shorten a URL. Defaults to false.
-  # INVALID_SHORT_URL_REDIRECT_TO: If a URL is provided here, when a user tries to access an invalid short URL, he/she will be redirected to this value. If this env var is not provided, the user will see a generic 404 - not found page.
   # REGULAR_404_REDIRECT_TO: If a URL is provided here, when a user tries to access a URL not matching any one supported by the router, he/she will be redirected to this value. If this env var is not provided, the user will see a generic 404 - not found page.
-  # BASE_URL_REDIRECT_TO: If a URL is provided here, when a user tries to access Shlink's base URL, he/she will be redirected to this value. If this env var is not provided, the user will see a generic 404 - not found page.
   # BASE_PATH: The base path from which you plan to serve shlink, in case you don't want to serve it from the root of the domain. Defaults to ''.
   # WEB_WORKER_NUM: The amount of concurrent http requests this shlink instance will be able to server. Defaults to 16.
   # TASK_WORKER_NUM: The amount of concurrent background tasks this shlink instance will be able to execute. Defaults to 16.
   # VISITS_WEBHOOKS: A comma-separated list of URLs that will receive a POST request when a short URL receives a visit.
   # DEFAULT_SHORT_CODES_LENGTH: The length you want generated short codes to have. It defaults to 5 and has to be at least 4, so any value smaller than that will fall back to 4.
-  # REDIS_SERVERS: A comma-separated list of redis servers where Shlink locks are stored (locks are used to prevent some operations to be run more than once in parallel).
-  # MERCURE_PUBLIC_HUB_URL: The public URL of a mercure hub server to which Shlink will sent updates. This URL will also be served to consumers that want to subscribe to those updates.
-  # MERCURE_INTERNAL_HUB_URL: An internal URL for a mercure hub. Will be used only when publishing updates to mercure, and does not need to be public. If this is not provided but MERCURE_PUBLIC_HUB_URL was, the former one will be used to publish updates.
-  # MERCURE_JWT_SECRET: The secret key that was provided to the mercure hub server, in order to be able to generate valid JWTs for publishing/subscribing to that server.
 
 mariadb:
   ## Disable MariaDB replication
