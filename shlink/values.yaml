@@ -33,6 +33,30 @@ env:
   # MERCURE_INTERNAL_HUB_URL: An internal URL for a mercure hub. Will be used only when publishing updates to mercure, and does not need to be public. If this is not provided but MERCURE_PUBLIC_HUB_URL was, the former one will be used to publish updates.
   # MERCURE_JWT_SECRET: The secret key that was provided to the mercure hub server, in order to be able to generate valid JWTs for publishing/subscribing to that server.
 
+mariadb:
+  ## Disable MariaDB replication
+  replication:
+    enabled: false
+
+  ## Create a database and a database user
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#creating-a-database-user-on-first-run
+  ##
+  db:
+    name: shlink
+    user: shlink
+    ## If the password is not specified, mariadb will generates a random password
+    ##
+    # password:
+
+  service:
+    port: 3306
+
+  ## MariaDB admin password
+  ## ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.md#setting-the-root-password-on-first-run
+  ##
+  # rootUser:
+  #   password:
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false

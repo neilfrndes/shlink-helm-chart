@@ -8,7 +8,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-ingress
   labels:
     {{- include "shlink.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -21,11 +21,11 @@ spec:
         - {{ .Values.env.SHORT_DOMAIN_HOST }}
       secretName: {{ .Values.env.SHORT_DOMAIN_HOST }}-secret
   rules:
-    - host: {{ required "Short Domain Host required" .Values.env.SHORT_DOMAIN_HOST }}
+    - host: {{ .Values.env.SHORT_DOMAIN_HOST }}
       http:
         paths:
           - path: /
             backend:
-              serviceName: {{ $fullName }}
+              serviceName: {{ $fullName }}-service
               servicePort: {{ $svcPort }}
 {{- end }}

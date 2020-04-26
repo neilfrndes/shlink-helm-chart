@@ -4,8 +4,13 @@ description: A Helm chart for Kubernetes
 icon: https://shlink.io/favicon.svg
 
 maintainers:
-    - name: Neil Fernandes
-      website: enroute.ai
+  - name: Neil Fernandes
+    url: enroute.ai
+
+dependencies:
+  - name: mariadb
+    version: "7.3.21"
+    repository: "https://charts.bitnami.com/bitnami"
 
 # A chart can be either an 'application' or a 'library' chart.
 #
