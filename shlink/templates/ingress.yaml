@@ -16,26 +16,16 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
-        - {{ . | quote }}
-      {{- end }}
-      secretName: {{ .secretName }}
-  {{- end }}
-{{- end }}
+        - {{ .Values.env.SHORT_DOMAIN_HOST }}
+      secretName: {{ .Values.env.SHORT_DOMAIN_HOST }}-secret
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ required "Short Domain Host required" .Values.env.SHORT_DOMAIN_HOST }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+          - path: /
             backend:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
-        {{- end }}
-  {{- end }}
 {{- end }}
