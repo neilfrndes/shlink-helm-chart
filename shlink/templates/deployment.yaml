@@ -51,6 +51,8 @@ spec:
             - name: BASE_URL_REDIRECT_TO
               value: {{ .Values.env.BASE_URL_REDIRECT_TO }}
             {{- end }}
+            - name: ANONYMIZE_REMOTE_ADDR
+              value: {{ .Values.env.ANONYMIZE_REMOTE_ADDR }}
           ports:
             - name: http
               containerPort: 8080
