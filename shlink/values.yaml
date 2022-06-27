@@ -23,6 +23,10 @@ env:
   # VISITS_WEBHOOKS: A comma-separated list of URLs that will receive a POST request when a short URL receives a visit.
   # DEFAULT_SHORT_CODES_LENGTH: The length you want generated short codes to have. It defaults to 5 and has to be at least 4, so any value smaller than that will fall back to 4.
 
+extraEnv:
+  # - name: 
+  #   value:
+
 mariadb:
   ## Disable MariaDB replication
   replication:
@@ -76,6 +80,15 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
+  # hosts:
+  #   - host:
+  #     path: 
+  tls:
+    enabled: false
+    # hosts:
+    #   - host:
+    #     path:
+    #     secret:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
