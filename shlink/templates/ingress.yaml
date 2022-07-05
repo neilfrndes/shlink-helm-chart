@@ -1,11 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "shlink.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}-ingress
@@ -16,16 +12,25 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.ingress.tls.enabled }}
   tls:
+    {{- range .Values.ingress.tls.hosts }}
     - hosts:
-        - {{ .Values.env.SHORT_DOMAIN_HOST }}
-      secretName: {{ .Values.env.SHORT_DOMAIN_HOST }}-secret
+        - {{ .host }}
+      secretName: {{ .secret }}
+    {{- end }}
+  {{- end }}
   rules:
-    - host: {{ .Values.env.SHORT_DOMAIN_HOST }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
       http:
         paths:
-          - path: /
+          - path: {{ .path | quote }}
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}-service
-              servicePort: {{ $svcPort }}
+              service:
+                name: {{ $fullName }}-service
+                port:
+                  number: {{ $svcPort }}
+    {{- end }}
 {{- end }}

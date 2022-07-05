@@ -53,6 +53,9 @@ spec:
             {{- end }}
             - name: ANONYMIZE_REMOTE_ADDR
               value: {{ .Values.env.ANONYMIZE_REMOTE_ADDR | quote }}
+            {{- with .Values.extraEnv }}
+              {{- toYaml . | nindent 12}}
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080

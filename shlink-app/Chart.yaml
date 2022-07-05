@@ -1,0 +1,8 @@
+apiVersion: v2
+name: shlink-app
+description: Shlink's progressive web app
+type: application
+version: 0.1.0
+appVersion: "3.7.1"
+kubeVersion: ">=1.14-0"
+icon: https://shlink.io/favicon.svg
